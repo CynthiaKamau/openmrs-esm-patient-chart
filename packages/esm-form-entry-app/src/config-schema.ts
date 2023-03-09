@@ -41,4 +41,10 @@ export const configSchema = {
     _description:
       'Custom URL to load resources required for appointment monthly schedule feature (under `dataSources`).',
   },
-};
+  htsRiskEligibilityResourceUrl: {
+    _type: 'String',
+    _default: '/ws/rest/v1/keml/casefindingscore',
+    _description:
+      'Custom URL to fetch the risk score of a patient based on a machine learning server',
+  }
+}

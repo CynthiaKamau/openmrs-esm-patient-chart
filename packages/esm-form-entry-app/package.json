@@ -8,7 +8,7 @@
   "source": true,
   "scripts": {
     "start": "openmrs develop",
-    "serve": "ng serve --port 4200 --live-reload true",
+    "serve": "ng serve --port 4200 --live-reload false",
     "debug": "yarn run serve",
     "build": "ng build --configuration production",
     "lint": "eslint src --ext ts --fix --max-warnings=0"
@@ -48,6 +48,7 @@
     "@carbon/styles": "~1.14.0",
     "@ng-select/ng-select": "^6.1.0",
     "@ngx-translate/core": "^13.0.0",
+    "@openmrs/esm-form-entry-app": "file:C:/Users/shiro/Documents/Openmrs 3.x/openmrs-ngx-formentry/dist/ngx-formentry",
     "@openmrs/ngx-formentry": "next",
     "hammerjs": "^2.0.8",
     "jspdf": "^1.5.3",

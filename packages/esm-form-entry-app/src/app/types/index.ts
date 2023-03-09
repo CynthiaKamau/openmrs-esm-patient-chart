@@ -214,6 +214,7 @@ export interface FormEntryConfig {
     moduleExport: 'default' | string;
   }[];
   appointmentsResourceUrl: string;
+  htsRiskEligibilityResourceUrl: string;
 }
 
 export interface ListResult<T> {
@@ -357,4 +358,20 @@ export interface PersonAttribute {
 export interface PersonUpdate {
   uuid?: string;
   attributes: Array<PersonAttribute>;
+}
+
+export interface HTSMLRiskScoreParams {
+  gender: string;
+  age: string | number;
+  latestMaritalStatus: string | number;
+  monthsSinceLastTest: number;
+  populationType: string | number;
+  isDisabled: string | number;
+  everTested: string | number;
+  testedAs: string | number;
+  entryPoint: string | number;
+  testStrategy: string | number;
+  tbScreening: string | number;
+  selfTested: string | number;
+  monthsSinceLastTestInt: number
 }
