@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { ReplaySubject, BehaviorSubject, Observable, forkJoin, combineLatest } from 'rxjs';
 import { EncounterResourceService } from '../openmrs-api/encounter-resource.service';
 import { PatientResourceService } from './patient-resource.service';
+import { showToast } from '@openmrs/esm-framework';
+import { PatientIdentiferPayload } from '../types';
 
 @Injectable()
 export class PatientService {
@@ -13,6 +15,24 @@ export class PatientService {
     private patientResourceService: PatientResourceService,
     private encounterResource: EncounterResourceService,
   ) {}
+
+  private createPatientIdentifierPayload(
+    identifier: string,
+    identifierType: string,
+    locationUuid: string,
+    preferred: boolean,
+  ): PatientIdentiferPayload {
+    return {
+      identifier: identifier,
+      identifierType: identifierType,
+      location: locationUuid,
+      preferred: true,
+    };
+  }
+
+  private updatePatientIdentifierPayload(identifier: string): PatientIdentiferPayload {
+    return { identifier: identifier };
+  }
 
   public setCurrentlyLoadedPatientByUuid(patientUuid: string): BehaviorSubject<any> {
     if (this.currentlyLoadedPatient.value !== null) {
@@ -64,5 +84,31 @@ export class PatientService {
     this.currentlyLoadedPatient = new BehaviorSubject(null);
     this.currentlyLoadedPatientUuid = new BehaviorSubject<string>(null);
     this.isBusy = new BehaviorSubject(false);
+  }
+
+  private showToastMessage(title: string, description: string, kind: 'success' | 'error'): void {
+    showToast({ title, description, kind });
+  }
+
+  public createPatientIdentifier(
+    patientUuid: string,
+    locationUuid: string,
+    identifier: string,
+    identifierUuid: string,
+    identifierType: string,
+  ) {
+    const payload = this.createPatientIdentifierPayload(identifier, identifierType, locationUuid, true);
+    this.patientResourceService.saveUpdatePatientIdentifier(patientUuid, identifierUuid, payload).subscribe(() => {
+      this.showToastMessage('Patient identifier saved', 'Patient identifier has been added', 'success');
+    });
+    return;
+  }
+
+  public updatePatientIdentifier(patientUuid: string, identifier: string, identifierUuid: string) {
+    const payload = this.updatePatientIdentifierPayload(identifier);
+    this.patientResourceService.saveUpdatePatientIdentifier(patientUuid, identifierUuid, payload).subscribe(() => {
+      this.showToastMessage('Patient identifier updated', 'Patient identifier has been updated', 'success');
+    });
+    return;
   }
 }

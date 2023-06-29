@@ -16,6 +16,7 @@ import { CreateFormParams, FormCreationService } from '../form-creation/form-cre
 import { ConceptService } from '../services/concept.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ProgramResourceService } from '../openmrs-api/program-resource.service';
+import { PatientService } from '../openmrs-api/patient-service';
 
 type FormState =
   | 'initial'
@@ -58,6 +59,7 @@ export class FeWrapperComponent implements OnInit, OnDestroy {
     private readonly translateService: TranslateService,
     private readonly ngZone: NgZone,
     private readonly programService: ProgramResourceService,
+    private readonly patientService: PatientService,
   ) {}
 
   public ngOnInit() {
@@ -208,6 +210,7 @@ export class FeWrapperComponent implements OnInit, OnDestroy {
           this.singleSpaPropsService.getProp('patientUuid'),
           encounterToSubmit,
         );
+        //this.patientService.
         showToast({
           critical: true,
           kind: 'success',

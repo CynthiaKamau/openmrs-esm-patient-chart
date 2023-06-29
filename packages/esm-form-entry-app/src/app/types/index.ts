@@ -436,3 +436,10 @@ export interface MetaData {
   discontinuationDateQuestionId: string;
   enrollmentDateQuestionId: string;
 }
+
+export interface PatientIdentiferPayload {
+  identifier: string;
+  identifierType?: string;
+  location?: string;
+  preferred?: boolean;
+}
