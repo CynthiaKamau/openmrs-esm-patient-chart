@@ -238,6 +238,11 @@ export interface Location {
   display: string;
 }
 
+export interface SubLocation {
+  uuid: string;
+  name: string;
+}
+
 export interface Provider {
   uuid: string;
   display: string;
