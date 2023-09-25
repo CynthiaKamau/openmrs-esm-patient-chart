@@ -455,3 +455,8 @@ export interface IdentifierPayload {
   newIdentifiers: Array<any>;
   currentIdentifiers: Array<any>;
 }
+
+export interface SubLocation {
+  uuid: string;
+  name: string;
+}

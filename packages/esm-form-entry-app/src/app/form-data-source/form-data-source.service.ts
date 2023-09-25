@@ -18,7 +18,9 @@ import type {
   PatientModel,
   Provider,
   Questions,
+  SubLocation,
 } from '../types';
+import { SubLocationResourceService } from '../openmrs-api/sub-location-resource.service';
 
 @Injectable()
 export class FormDataSourceService {
@@ -27,6 +29,7 @@ export class FormDataSourceService {
     private locationResourceService: LocationResourceService,
     private conceptResourceService: ConceptResourceService,
     private localStorageService: LocalStorageService,
+    private subLocationResourceService: SubLocationResourceService,
   ) {}
 
   public getDataSources(formSchema: FormSchema) {
@@ -34,6 +37,10 @@ export class FormDataSourceService {
       location: {
         resolveSelectedValue: this.getLocationByUuid.bind(this),
         searchOptions: this.findLocation.bind(this),
+      },
+      subLocation: {
+        resolveSelectedValue: this.getSubLocationByName.bind(this),
+        searchOptions: this.findSubLocation.bind(this),
       },
       provider: {
         resolveSelectedValue: this.getProviderByUuid.bind(this),
@@ -164,6 +171,13 @@ export class FormDataSourceService {
     );
   }
 
+  public findSubLocation(searchText) {
+    return this.subLocationResourceService.searchSubLocation(searchText).pipe(
+      map((locations) => locations.map(this.mapSubLocation)),
+      take(10),
+    );
+  }
+
   private fetchMostRecentObsValue(patient: string, concepts: string | Array<string>) {
     if (!patient) {
       throw new Error('patient must be provided in call to fetchMostRecentObsValue');
@@ -238,6 +252,10 @@ export class FormDataSourceService {
     return this.locationResourceService.getLocationByUuid(uuid).pipe(map(this.mapLocation));
   }
 
+  public getSubLocationByName(name: string) {
+    return this.subLocationResourceService.getSubLocationByName(name).pipe(map(this.mapSubLocation));
+  }
+
   private mapLocation(location?: Location) {
     return (
       location && {
@@ -249,6 +267,15 @@ export class FormDataSourceService {
 
   public resolveConcept(uuid: string) {
     return this.conceptResourceService.getConceptByUuid(uuid).pipe(map(this.mapConcept));
+  }
+
+  private mapSubLocation(location?: SubLocation) {
+    return (
+      location && {
+        label: location.name,
+        value: location.uuid,
+      }
+    );
   }
 
   public getConceptAnswers(uuid: string) {

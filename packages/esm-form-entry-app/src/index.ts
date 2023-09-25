@@ -43,6 +43,11 @@ export function startupApp() {
     pattern: '.+/ws/rest/v1/person.*',
   });
 
+  messageOmrsServiceWorker({
+    type: 'registerDynamicRoute',
+    pattern: '.+/module/addresshierarchy/ajax/getChildAddressHierarchyEntries.form.*',
+  });
+
   defineConfigSchema(moduleName, configSchema);
 }
 
