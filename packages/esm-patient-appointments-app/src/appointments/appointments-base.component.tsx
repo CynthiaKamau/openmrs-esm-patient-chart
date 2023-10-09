@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 import { Button, DataTableSkeleton, ContentSwitcher, InlineLoading, Layer, Switch, Tile } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
-import { useLayoutType } from '@openmrs/esm-framework';
+import { useConfig, useLayoutType } from '@openmrs/esm-framework';
 import { CardHeader, EmptyDataIllustration, ErrorState, launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
 import { useAppointments } from './appointments.resource';
 import AppointmentsTable from './appointments-table.component';
@@ -35,6 +35,7 @@ const AppointmentsBase: React.FC<AppointmentsBaseProps> = ({ patientUuid }) => {
     isLoading,
     isValidating,
   } = useAppointments(patientUuid, startDate, new AbortController());
+  const { showCreateAppointmentButtons } = useConfig();
 
   const launchAppointmentsForm = () =>
     launchPatientWorkspace('appointments-form-workspace', {
@@ -66,15 +67,19 @@ const AppointmentsBase: React.FC<AppointmentsBaseProps> = ({ patientUuid }) => {
               <Switch name={'today'} text={t('today', 'Today')} />
               <Switch name={'past'} text={t('past', 'Past')} />
             </ContentSwitcher>
-            <div className={styles.divider}>|</div>
-            <Button
-              kind="ghost"
-              renderIcon={(props) => <Add size={16} {...props} />}
-              iconDescription="Add Appointments"
-              onClick={launchAppointmentsForm}
-            >
-              {t('add', 'Add')}
-            </Button>
+            {showCreateAppointmentButtons && (
+              <>
+                <div className={styles.divider}>|</div>
+                <Button
+                  kind="ghost"
+                  renderIcon={(props) => <Add size={16} {...props} />}
+                  iconDescription="Add Appointments"
+                  onClick={launchAppointmentsForm}
+                >
+                  {t('add', 'Add')}
+                </Button>
+              </>
+            )}
           </div>
         </CardHeader>
         {(() => {
