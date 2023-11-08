@@ -8,6 +8,7 @@ import { SingleSpaPropsService } from '../single-spa-props/single-spa-props.serv
 import { Encounter, FormSchema, Identifier } from '../types';
 import { Session } from '@openmrs/esm-framework';
 import { isFunction } from 'lodash-es';
+import moment from 'moment';
 
 /**
  * Data required for creating a {@link Form} instance.
@@ -243,12 +244,21 @@ export class FormCreationService {
 
   private setDefaultValues(form: Form, createFormParams: CreateFormParams) {
     const { session } = createFormParams;
-    let currentDate = dayjs().format();
-    const visitStartDatetime = dayjs(this.singleSpaPropsService.getProp('visitStartDatetime')).format();
-    // If the visit start date is before the current date, use the visit start date as the default date.
-    if (visitStartDatetime && dayjs(visitStartDatetime).isBefore(currentDate, 'date')) {
-      currentDate = visitStartDatetime;
+    const config = this.configResourceService.getConfig();
+    let currentDate;
+
+    if (config.customEncounterDatetime === true) {
+      const visitStartDatetime = dayjs(this.singleSpaPropsService.getProp('visitStartDatetime')).format();
+      // If the visit start date is before the current date, use the visit start date as the default date.
+      if (visitStartDatetime && dayjs(visitStartDatetime).isBefore(currentDate, 'date')) {
+        currentDate = visitStartDatetime;
+      } else {
+        currentDate = dayjs().format();
+      }
+    } else {
+      currentDate = moment().format();
     }
+
     // Encounter date and time.
     const encounterDate = form.searchNodeByQuestionId('encDate');
     if (encounterDate.length > 0) {
