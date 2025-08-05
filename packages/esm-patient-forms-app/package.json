@@ -1,27 +1,13 @@
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
   "name": "@ohri/esm-patient-forms-app",
-  "version": "10.2.0",
-=======
-  "name": "@openmrs/esm-patient-forms-app",
-<<<<<<< HEAD
-  "version": "11.2.0",
->>>>>>> a1ac47e6 ((chore) Release v11.2.0 (#2720))
-=======
-  "version": "11.2.1",
->>>>>>> c900b566 ((chore) Release v11.2.1 (#2722))
-=======
-  "name": "@ohri/esm-patient-forms-app",
-  "version": "10.2.0",
->>>>>>> 18b4f7aa (Add scroll on both HFE and RFE forms)
+  "version": "10.3.0",
   "license": "MPL-2.0",
   "description": "Patient forms microfrontend for the OpenMRS SPA",
   "browser": "dist/ohri-esm-patient-forms-app.js",
   "main": "src/index.ts",
   "source": true,
   "scripts": {
-    "start": "openmrs develop",
+    "start": "openmrs develop --backend https://rwandaemr.globalhealthapp.net --config-url https://rwandaemr.globalhealthapp.net/openmrs/spa/config.json --port=8070",
     "serve": "webpack serve --mode=development",
     "debug": "npm run serve",
     "build": "webpack --mode production --color",
