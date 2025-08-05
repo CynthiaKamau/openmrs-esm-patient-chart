@@ -1,5 +1,6 @@
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
   "name": "@ohri/esm-patient-forms-app",
   "version": "10.2.0",
 =======
@@ -10,6 +11,10 @@
 =======
   "version": "11.2.1",
 >>>>>>> c900b566 ((chore) Release v11.2.1 (#2722))
+=======
+  "name": "@ohri/esm-patient-forms-app",
+  "version": "10.2.0",
+>>>>>>> 18b4f7aa (Add scroll on both HFE and RFE forms)
   "license": "MPL-2.0",
   "description": "Patient forms microfrontend for the OpenMRS SPA",
   "browser": "dist/ohri-esm-patient-forms-app.js",
