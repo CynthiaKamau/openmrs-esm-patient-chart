@@ -4397,8 +4397,13 @@ __metadata:
   linkType: soft
 
 "@openmrs/esm-form-engine-lib@npm:next":
+<<<<<<< HEAD
   version: 3.3.1-pre.2102
   resolution: "@openmrs/esm-form-engine-lib@npm:3.3.1-pre.2102"
+=======
+  version: 3.1.5-pre.2033
+  resolution: "@openmrs/esm-form-engine-lib@npm:3.1.5-pre.2033"
+>>>>>>> ad748d0a ((chore) Update OpenMRS dependencies (#2654))
   dependencies:
     "@carbon/react": "npm:^1.83.0"
     classnames: "npm:^2.5.1"
@@ -4415,7 +4420,11 @@ __metadata:
     react: 18.x
     react-i18next: 11.x
     swr: 2.x
+<<<<<<< HEAD
   checksum: 10/7bd192f62793dcc0634a5823e67ed568a610ff2c3e78c70dc2c68bb244a0486e4889ac571f2d822a288c2fd8a7e9c8a2d9749b90f9d96ad204d47e40a73a56df
+=======
+  checksum: 10/cd6eb57e787a3d10c3572dfe5584f05e3cae6ffcc0eddabca34db03201e13af6b824becbc3440241e33e8db9a9d235828182a5cb854adf8ef29fcd512275df48
+>>>>>>> ad748d0a ((chore) Update OpenMRS dependencies (#2654))
   languageName: node
   linkType: hard
 
