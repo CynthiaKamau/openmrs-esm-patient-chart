@@ -4,8 +4,12 @@
   "version": "10.2.0",
 =======
   "name": "@openmrs/esm-patient-forms-app",
+<<<<<<< HEAD
   "version": "11.2.0",
 >>>>>>> a1ac47e6 ((chore) Release v11.2.0 (#2720))
+=======
+  "version": "11.2.1",
+>>>>>>> c900b566 ((chore) Release v11.2.1 (#2722))
   "license": "MPL-2.0",
   "description": "Patient forms microfrontend for the OpenMRS SPA",
   "browser": "dist/ohri-esm-patient-forms-app.js",
@@ -48,8 +52,8 @@
     "lodash-es": "^4.17.21"
   },
   "peerDependencies": {
-    "@openmrs/esm-framework": "7.x",
-    "@openmrs/esm-patient-common-lib": "10.x",
+    "@openmrs/esm-framework": "8.x",
+    "@openmrs/esm-patient-common-lib": "11.x",
     "dayjs": "1.x",
     "react": "18.x",
     "react-i18next": "11.x",
