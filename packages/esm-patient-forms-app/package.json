@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD
   "name": "@ohri/esm-patient-forms-app",
   "version": "10.2.0",
+=======
+  "name": "@openmrs/esm-patient-forms-app",
+  "version": "11.2.0",
+>>>>>>> a1ac47e6 ((chore) Release v11.2.0 (#2720))
   "license": "MPL-2.0",
   "description": "Patient forms microfrontend for the OpenMRS SPA",
   "browser": "dist/ohri-esm-patient-forms-app.js",
