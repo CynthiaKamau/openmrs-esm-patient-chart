@@ -6,7 +6,8 @@ import { formatDatetime, useLayoutType, ResponsiveWrapper } from '@openmrs/esm-f
 import type { CompletedFormInfo, Form } from '../types';
 import FormsTable from './forms-table.component';
 import styles from './forms-list.scss';
-import { DataTableSkeleton, InlineLoading } from '@carbon/react';
+import { DataTableSkeleton, InlineLoading, Tile } from '@carbon/react';
+import { EmptyDataIllustration } from '@openmrs/esm-patient-common-lib';
 
 export type FormsListProps = {
   completedForms?: Array<CompletedFormInfo>;
@@ -43,6 +44,7 @@ const FormsList: React.FC<FormsListProps> = ({
 }) => {
   const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
+  const [isSearching, setIsSearching] = useState(false);
   const isTablet = useLayoutType() === 'tablet';
   const [locale, setLocale] = useState(window.i18next.language ?? navigator.language);
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -61,10 +63,23 @@ const FormsList: React.FC<FormsListProps> = ({
     () =>
       debounce((searchTerm: string) => {
         setSearchTerm(searchTerm);
-        onSearch?.(searchTerm);
-      }, 1000),
+        setIsSearching(true);
+
+        // Give users time to finish typing before executing the search
+        setTimeout(() => {
+          onSearch?.(searchTerm);
+          setIsSearching(false);
+        }, 300);
+      }, 800), // Reduced from 5000ms to 800ms for a more responsive feel
     [onSearch],
   );
+
+  // Reset searching state when search term is empty
+  useEffect(() => {
+    if (searchTerm === '') {
+      setIsSearching(false);
+    }
+  }, [searchTerm]);
 
   // Set up intersection observer for infinite scrolling
   useEffect(() => {
@@ -207,7 +222,14 @@ const FormsList: React.FC<FormsListProps> = ({
   }
 
   if (completedForms?.length === 0 && !isLoading) {
-    return <></>;
+    return (
+      <ResponsiveWrapper>
+        <Tile className={styles.emptyState}>
+          <EmptyDataIllustration />
+          <p className={styles.emptyStateContent}>{t('noFormsToDisplay', 'There are no forms to display.')}</p>
+        </Tile>
+      </ResponsiveWrapper>
+    );
   }
 
   const tableComponent = enableInfiniteScrolling ? (
@@ -219,6 +241,7 @@ const FormsList: React.FC<FormsListProps> = ({
         handleSearch={onSearch ? onSearch : handleSearch}
         handleFormOpen={handleFormOpen}
         totalLoaded={totalLoaded}
+        isSearching={isSearching}
       />
 
       {/* Load more trigger */}
@@ -261,6 +284,7 @@ const FormsList: React.FC<FormsListProps> = ({
       handleSearch={handleSearch}
       handleFormOpen={handleFormOpen}
       totalLoaded={totalLoaded}
+      isSearching={isSearching}
     />
   );
 
