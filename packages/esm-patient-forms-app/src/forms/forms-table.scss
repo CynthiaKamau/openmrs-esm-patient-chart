@@ -142,3 +142,15 @@
   margin-top: layout.$spacing-03;
   text-align: right;
 }
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.searchingIndicator {
+  margin-left: layout.$spacing-03;
+  display: flex;
+  align-items: center;
+}

@@ -13,6 +13,7 @@ import {
   TableToolbar,
   TableToolbarContent,
   TableToolbarSearch,
+  InlineLoading,
 } from '@carbon/react';
 import { type Form } from '../types';
 import styles from './forms-table.scss';
@@ -35,6 +36,7 @@ interface FormsTableProps {
   handleFormOpen: (form: Form, encounterUuid: string) => void;
   customSearchComponent?: React.ReactNode;
   totalLoaded?: number;
+  isSearching?: boolean;
 }
 
 const FormsTable = ({
@@ -44,6 +46,7 @@ const FormsTable = ({
   handleSearch,
   handleFormOpen,
   customSearchComponent,
+  isSearching,
 }: FormsTableProps) => {
   const { t } = useTranslation();
   return (
@@ -56,13 +59,20 @@ const FormsTable = ({
               <div className={styles.toolbarWrapper}>
                 <TableToolbar className={styles.tableToolbar}>
                   <TableToolbarContent>
-                    <TableToolbarSearch
-                      className={styles.search}
-                      expanded
-                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleSearch?.(event.target.value)}
-                      placeholder={t('searchThisList', 'Search this list')}
-                      size="sm"
-                    />
+                    <div className={styles.searchContainer}>
+                      <TableToolbarSearch
+                        className={styles.search}
+                        expanded
+                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleSearch?.(event.target.value)}
+                        placeholder={t('searchThisList', 'Search this list')}
+                        size="sm"
+                      />
+                      {isSearching && (
+                        <div className={styles.searchingIndicator}>
+                          <InlineLoading description={t('searching', 'Searching...')} />
+                        </div>
+                      )}
+                    </div>
                   </TableToolbarContent>
                 </TableToolbar>
               </div>

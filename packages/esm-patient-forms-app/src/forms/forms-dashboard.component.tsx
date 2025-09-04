@@ -113,7 +113,7 @@ const FormsDashboard: React.FC<FormsDashboardProps> = ({
     }));
   }, [config.formSections, forms]);
 
-  if (forms?.length === 0) {
+  if (forms?.length === 0 && !searchQuery) {
     return (
       <ResponsiveWrapper>
         <Tile className={styles.emptyState}>
